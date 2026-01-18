@@ -1,0 +1,97 @@
+========================================
+   COMO ADICIONAR GIFS RETRO AO SITE
+========================================
+
+O site esta configurado para usar GIFs da pasta "gifs/".
+
+IMPORTANTE: Se os GIFs nao estiverem na pasta, eles simplesmente
+nao aparecerao (sem quebrar o site). As animacoes CSS continuam
+funcionando normalmente!
+
+========================================
+ONDE BAIXAR GIFS RETRO GRATIS:
+========================================
+
+1. GIFCITIES (Internet Archive)
+   https://gifcities.org/
+   - Maior colecao de GIFs do Geocities
+   - Pesquise por: "fire", "new", "cool", "construction", "email", etc
+
+2. The 88x31 GIF Collection
+   https://cyber.dabamos.de/88x31/
+   - Colecao de 4540 badges classicos 88x31
+   - Download direto permitido
+
+3. TextFiles Under Construction
+   http://www.textfiles.com/underconstruction/
+   - GIFs de "Under Construction" classicos
+
+4. GitHub - 88x31 Collections
+   https://github.com/mrrpnya/88x31
+   https://github.com/vilgacx/88x31
+   - Repositorios com badges retro
+
+5. Cameron's World
+   https://www.cameronsworld.net
+   - Projeto artistico com GIFs do Geocities
+
+========================================
+GIFS QUE O SITE ESTA PROCURANDO:
+========================================
+
+Na pasta gifs/, adicione estes arquivos:
+
+OBRIGATORIOS (aparecem em varios lugares):
+- fire.gif          (fogo animado, ~40x40px)
+- construction.gif  (Under Construction, ~200x100px)
+
+OPCIONAIS (melhoram a aparencia):
+- netscape.gif      (icone Netscape, ~20x20px)
+- web.gif          (badge "Web", 88x31px)
+- geocities.gif    (badge Geocities, 88x31px)
+- cool.gif         (badge "Cool", 88x31px)
+- new.gif          (badge "New", 88x31px)
+- retro.gif        (badge retro generico, 88x31px)
+
+========================================
+COMO ADICIONAR:
+========================================
+
+1. Baixe os GIFs dos sites acima
+2. Renomeie para os nomes listados acima
+3. Coloque na pasta "gifs/"
+4. Recarregue a pagina!
+
+DICA: Procure por termos como:
+- "fire animation gif"
+- "under construction gif 90s"
+- "new badge gif retro"
+- "88x31 badges"
+
+========================================
+ALTERNATIVA: USE SITES ONLINE
+========================================
+
+Se quiser, pode editar o index.html e trocar:
+src="gifs/fire.gif"
+
+Por URLs diretas como:
+src="https://exemplo.com/fire.gif"
+
+Mas lembre-se: links externos podem quebrar!
+
+========================================
+OBSERVACAO:
+========================================
+
+O site ja tem MUITAS animacoes CSS que funcionam perfeitamente
+mesmo sem os GIFs:
+- Estrelas girando
+- Fogo pulsando (emoji animado por CSS)
+- Badges piscando (NEW, COOL, HOT)
+- Setas se movendo
+- Texto neon
+- Glitter
+- E muito mais!
+
+Os GIFs sao um EXTRA para deixar ainda mais autentico!
