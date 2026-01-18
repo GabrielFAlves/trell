@@ -454,42 +454,6 @@
             box-shadow: inset 2px 2px 0px #000;
         }
 
-        /* Memory Game */
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(4, 100px);
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .card {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #FF00FF, #00FFFF);
-            border: 3px outset #FFF;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-        }
-
-        .card.flipped {
-            background: #FFD700;
-            border-style: inset;
-        }
-
-        .card.matched {
-            background: #00FF00;
-            border-color: #008000;
-        }
-
         /* Under Construction */
         .under-construction {
             text-align: center;
@@ -553,6 +517,13 @@
         .plane-animation {
             position: fixed;
             font-size: 2em;
+            animation: fly 15s linear infinite;
+            z-index: 100;
+        }
+
+        .plane-animation2 {
+            position: fixed;
+            font-size: 4em;
             animation: fly 15s linear infinite;
             z-index: 100;
         }
@@ -792,6 +763,461 @@
             50% { opacity: 1; transform: scale(1.2); }
             75% { opacity: 0.7; transform: scale(0.9); }
         }
+
+        /* ==========================================
+           DEV MODE TERMINAL
+           ========================================== */
+
+        .dev-terminal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            height: 500px;
+            background: #000;
+            border: 3px ridge #00FF00;
+            box-shadow: 0 0 20px #00FF00, 10px 10px 0px rgba(0,0,0,0.5);
+            z-index: 10000;
+            font-family: 'Courier New', monospace;
+            color: #00FF00;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .dev-terminal-header {
+            background: linear-gradient(to bottom, #00AA00, #008800);
+            padding: 10px;
+            border-bottom: 2px solid #00FF00;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+        }
+
+        .dev-terminal-title {
+            font-weight: bold;
+            text-shadow: 0 0 5px #00FF00;
+        }
+
+        .dev-terminal-close {
+            background: #FF0000;
+            border: 2px outset #FF4444;
+            color: white;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            line-height: 21px;
+        }
+
+        .dev-terminal-close:hover {
+            background: #CC0000;
+        }
+
+        .dev-terminal-output {
+            height: calc(100% - 100px);
+            overflow-y: auto;
+            padding: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .dev-terminal-input-line {
+            padding: 10px 15px;
+            border-top: 2px solid #00FF00;
+            background: #001100;
+            display: flex;
+            align-items: center;
+        }
+
+        .dev-terminal-prompt {
+            color: #00FF00;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .dev-terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #00FF00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            outline: none;
+            caret-color: #00FF00;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+        }
+
+        .terminal-command {
+            color: #FFFF00;
+        }
+
+        .terminal-error {
+            color: #FF0000;
+        }
+
+        .terminal-success {
+            color: #00FFFF;
+        }
+
+        .terminal-ascii {
+            color: #00FF00;
+            line-height: 1.2;
+        }
+
+        /* ==========================================
+           BLACK HOLE EASTER EGG
+           ========================================== */
+
+        .black-hole-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            pointer-events: none;
+        }
+
+        .black-hole {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #000000 0%, #1a1a2e 30%, #16213e 60%, transparent 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: black-hole-grow 3s ease-out forwards;
+            box-shadow: 0 0 100px 50px rgba(0, 0, 0, 0.8),
+                        0 0 200px 100px rgba(138, 43, 226, 0.4),
+                        inset 0 0 50px rgba(138, 43, 226, 0.6);
+        }
+
+        .black-hole::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, transparent 40%, rgba(138, 43, 226, 0.4) 50%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: black-hole-ring 2s linear infinite;
+        }
+
+        .black-hole::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30%;
+            height: 30%;
+            background: #000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px 10px rgba(0, 0, 0, 1);
+        }
+
+        @keyframes black-hole-grow {
+            0% {
+                width: 50px;
+                height: 50px;
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                width: 400px;
+                height: 400px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes black-hole-ring {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) scale(1.1);
+            }
+        }
+
+        @keyframes suck-into-hole {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(var(--hole-x), var(--hole-y)) scale(0.01) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .being-sucked {
+            animation: suck-into-hole 2s ease-in forwards;
+        }
+
+        /* ==========================================
+           RESPONSIVE DESIGN - MOBILE FRIENDLY
+           ========================================== */
+
+        @media screen and (max-width: 768px) {
+            /* Container adjustments */
+            .container {
+                width: 95%;
+                padding: 15px;
+                margin: 10px auto;
+            }
+
+            /* Header */
+            h1 {
+                font-size: 2em !important;
+                padding: 10px !important;
+            }
+
+            h2 {
+                font-size: 1.5em !important;
+            }
+
+            h3 {
+                font-size: 1.3em !important;
+            }
+
+            /* Hide side GIFs on tablets and smaller */
+            body > div[style*="position: fixed"][style*="left: 10px"],
+            body > div[style*="position: fixed"][style*="right: 10px"] {
+                display: none !important;
+            }
+
+            /* Countdown */
+            .countdown-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+            }
+
+            /* Slideshow */
+            #slideshowImage {
+                max-height: 300px !important;
+            }
+
+            #slideshowCaption {
+                font-size: 1em !important;
+            }
+
+            /* Buttons */
+            button {
+                padding: 12px 20px !important;
+                font-size: 1em !important;
+                margin: 5px !important;
+            }
+
+            /* Top 10 */
+            .top10-item {
+                padding: 10px !important;
+                margin: 8px 0 !important;
+            }
+
+            .top10-rank {
+                font-size: 1.5em !important;
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            /* Quiz */
+            .quiz-option {
+                padding: 12px !important;
+                font-size: 0.95em !important;
+            }
+
+            /* MSN Chat */
+            .msn-chat {
+                width: 90% !important;
+                right: 5% !important;
+            }
+
+            /* Badges */
+            .badge-hot, .badge-cool, .badge-new {
+                font-size: 0.8em !important;
+                padding: 3px 8px !important;
+            }
+
+            /* Plane animation - smaller on mobile */
+            .plane-animation {
+                font-size: 1.5em !important;
+            }
+
+            /* YouTube player responsive */
+            #youtube-player iframe {
+                width: 100% !important;
+                height: 200px !important;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            /* Extra small screens (phones) */
+            body {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 1.5em !important;
+            }
+
+            h2 {
+                font-size: 1.2em !important;
+            }
+
+            /* Container */
+            .container {
+                width: 98%;
+                padding: 10px;
+            }
+
+            .section {
+                padding: 15px !important;
+            }
+
+            /* Countdown smaller */
+            .countdown-item {
+                min-width: 50px;
+                padding: 8px;
+            }
+
+            .countdown-number {
+                font-size: 1.5em !important;
+            }
+
+            .countdown-label {
+                font-size: 0.7em !important;
+            }
+
+            /* Slideshow optimized for mobile */
+            #slideshowFrame {
+                padding: 10px !important;
+                min-height: 250px !important;
+            }
+
+            #slideshowImage {
+                max-height: 250px !important;
+            }
+
+            /* Navigation buttons stacked */
+            button[onclick*="Photo"] {
+                width: 100% !important;
+                margin: 5px 0 !important;
+            }
+
+            /* Thumbnails smaller */
+            #thumbnailContainer div {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            /* Top 10 */
+            .top10-rank {
+                font-size: 1.2em !important;
+                width: 35px !important;
+                height: 35px !important;
+            }
+
+            .top10-text {
+                font-size: 0.9em !important;
+            }
+
+            /* Guestbook */
+            .guestbook-entry {
+                padding: 12px !important;
+            }
+
+            textarea, input[type="text"] {
+                font-size: 16px !important; /* Prevent zoom on iOS */
+            }
+
+            /* MSN Chat */
+            .msn-chat {
+                width: 95% !important;
+                right: 2.5% !important;
+                bottom: 10px !important;
+            }
+
+            .msn-messages {
+                max-height: 150px !important;
+            }
+
+            /* Hit counter */
+            .hit-counter {
+                font-size: 0.9em;
+            }
+
+            /* Music player */
+            .music-player {
+                width: 90% !important;
+                left: 5% !important;
+                right: auto !important;
+                bottom: 10px !important;
+                padding: 8px !important;
+            }
+
+            /* YouTube player responsive */
+            #youtube-player iframe {
+                width: 100% !important;
+                height: 180px !important;
+            }
+
+            /* Marquee */
+            .marquee {
+                font-size: 0.9em;
+            }
+
+            /* Hide plane animation on very small screens */
+            .plane-animation {
+                display: none !important;
+            }
+
+            /* Photo upload section */
+            #photoUpload, #photoCaption {
+                font-size: 16px !important;
+            }
+
+            /* Backup buttons responsive */
+            div[style*="display: flex"][style*="gap: 10px"] button {
+                font-size: 0.8em !important;
+                padding: 8px 15px !important;
+            }
+        }
+
+        /* Landscape mobile optimization */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
+            .msn-chat {
+                display: none !important;
+            }
+
+            .music-player {
+                display: none !important;
+            }
+
+            #slideshowImage {
+                max-height: 200px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -835,8 +1261,20 @@
         </div>
     </div>
 
-    <!-- Flying Plane Animation -->
-    <div class="plane-animation">✈️</div>
+    <img class="plane-animation" src="gifs/plane.gif" alt="Plane" style="width: 40px; vertical-align: middle;" onerror="this.style.display='none'">
+
+    <!-- Decorative GIFs on Sides -->
+    <div style="position: fixed; left: 10px; top: 150px; z-index: 50; display: flex; flex-direction: column; gap: 30px;">
+        <img src="gifs/caveira-dancando.gif" alt="Skull" style="width: 150px;" onerror="this.style.display='none'">
+        <img src="gifs/club-penguin.gif" alt="Club Penguin" style="width: 150px;" onerror="this.style.display='none'">
+        <img src="gifs/linux.gif" alt="Linux" style="width: 150px;" onerror="this.style.display='none'">
+    </div>
+
+    <div style="position: fixed; right: 10px; top: 150px; z-index: 50; display: flex; flex-direction: column; gap: 30px;">
+        <img src="gifs/girl-emo.gif" alt="Emo Girl" style="width: 150px;" onerror="this.style.display='none'">
+        <img src="gifs/caveira-dancando.gif" alt="Skull" style="width: 150px;" onerror="this.style.display='none'">
+        <img src="gifs/club-penguin.gif" alt="Club Penguin" style="width: 150px;" onerror="this.style.display='none'">
+    </div>
 
     <div class="container">
         <!-- Header -->
@@ -1046,70 +1484,106 @@
             </h2>
             <div style="text-align: center; margin: 10px 0;">
                 <span class="badge-hot">FOTOS QUENTES!</span>
+                <span class="badge-new" style="margin-left: 10px;">CLIQUE NAS SETAS!</span>
             </div>
-            <div class="gallery">
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Dead+by+Daylight" alt="DBD Nights">
-                    <div class="photo-caption">Noites de terror no DBD! 🔦👻</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/2E8B57/FFFFFF?text=Terraria+Sessions" alt="Terraria">
-                    <div class="photo-caption">Construindo até o sol nascer! ⛏️🌙</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/4169E1/FFFFFF?text=Club+Penguin" alt="Club Penguin">
-                    <div class="photo-caption">Nostalgia do pinguim! 🐧❄️</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/FFD700/000000?text=HACKATHON+WIN" alt="Hackathon">
-                    <div class="photo-caption">VGT CAMPEÃO! 🏆💻</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/FF1493/FFFFFF?text=IBMEC+Memories" alt="IBMEC">
-                    <div class="photo-caption">S... na escada! 😂🏫</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/8A2BE2/FFFFFF?text=VGT+CREW" alt="VGT">
-                    <div class="photo-caption">A LENDÁRIA VGT! 🎮💜</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/FF4500/FFFFFF?text=TRELL+BKZL" alt="Girias">
-                    <div class="photo-caption">Nossas gírias ICFV! 🗣️</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="https://via.placeholder.com/300x200/00CED1/000000?text=CODE+LIFE" alt="Dev Life">
-                    <div class="photo-caption">Vida de dev COOKED! 💻💀</div>
-                </div>
-                <div class="photo-frame">
-                    <img src="imgs/quase-firme.jpeg" alt="G.Firmeza">
-                    <div class="photo-caption">O cara que vai embora! 😭</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Decorative Divider -->
-        <div class="retro-divider"></div>
-
-        <!-- Memory Game -->
-        <div class="section">
-            <h2>
-                <span class="fire">🔥</span>
-                🎮 JOGO DA MEMORIA - ENCONTRE OS PARES! 🎮
-                <span class="fire">🔥</span>
-            </h2>
-            <div style="text-align: center; margin: 10px 0;">
-                <span class="arrow-blink">➡️</span>
-                <span class="badge-cool">JOGUE AGORA!</span>
-                <span class="arrow-blink">⬅️</span>
+            <!-- Slideshow Counter -->
+            <div style="text-align: center; margin: 20px 0; font-size: 1.3em; font-weight: bold; color: #FF1493;">
+                <span class="arrow-blink">👉</span>
+                Foto <span id="currentPhotoIndex">1</span> de <span id="totalPhotos">9</span>
+                <span class="arrow-blink">👈</span>
             </div>
-            <div style="text-align: center; margin: 20px 0;">
-                <button onclick="resetGame()">NOVO JOGO</button>
-                <div style="margin-top: 10px; font-size: 1.2em; font-weight: bold;">
-                    Movimentos: <span id="moves">0</span> |
-                    Pares: <span id="pairs">0</span>/8
+
+            <!-- Slideshow Container -->
+            <div style="position: relative; max-width: 800px; margin: 0 auto; background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%); padding: 30px; border: 5px ridge #C0C0C0; border-radius: 10px;">
+
+                <!-- Main Photo Display -->
+                <div id="slideshowFrame" style="background: white; padding: 15px; border: 5px inset #808080; text-align: center; min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
+                    <img id="slideshowImage" src="" alt="Foto da galeria" style="max-width: 100%; max-height: 500px; margin: 0 auto; border: 3px ridge #FFD700; display: block;">
+                    <div id="slideshowCaption" style="margin-top: 15px; font-size: 1.3em; font-weight: bold; color: #0000FF; text-shadow: 1px 1px #FFFF00; padding: 10px;"></div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div style="margin-top: 20px; text-align: center; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <button onclick="previousPhoto()" style="padding: 15px 30px; font-size: 1.3em; font-weight: bold; background: linear-gradient(to bottom, #FF69B4, #FF1493); color: white; border: 3px outset #FF69B4; cursor: pointer; border-radius: 5px;">
+                        ⬅️ ANTERIOR
+                    </button>
+                    <button onclick="nextPhoto()" style="padding: 15px 30px; font-size: 1.3em; font-weight: bold; background: linear-gradient(to bottom, #FF69B4, #FF1493); color: white; border: 3px outset #FF69B4; cursor: pointer; border-radius: 5px;">
+                        PRÓXIMA ➡️
+                    </button>
+                </div>
+
+                <!-- Thumbnail Navigation -->
+                <div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;" id="thumbnailContainer">
+                    <!-- Thumbnails will be generated by JavaScript -->
                 </div>
             </div>
-            <div class="game-board" id="game-board"></div>
+
+            <!-- Photo Upload Section -->
+            <div style="margin-top: 40px; padding: 20px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); border: 5px ridge #FFD700; border-radius: 10px;">
+                <h3 style="text-align: center; color: #8B0000; text-shadow: 2px 2px #FFFF00; margin-top: 0;">
+                    <span class="star-spin">⭐</span>
+                    📤 ADICIONE SUA FOTO! 📤
+                    <span class="star-spin">⭐</span>
+                </h3>
+                <div style="text-align: center; margin: 10px 0;">
+                    <span class="badge-new">UPLOAD AQUI!</span>
+                </div>
+
+                <div style="background: white; padding: 20px; border: 3px inset #C0C0C0; border-radius: 5px;">
+                    <!-- File Input -->
+                    <div style="margin-bottom: 15px;">
+                        <label for="photoUpload" style="display: block; font-weight: bold; color: #0000FF; margin-bottom: 5px;">
+                            🖼️ Escolha uma foto:
+                        </label>
+                        <input type="file" id="photoUpload" accept="image/*" style="width: 100%; padding: 5px; border: 2px solid #0000FF;">
+                    </div>
+
+                    <!-- Caption Input -->
+                    <div style="margin-bottom: 15px;">
+                        <label for="photoCaption" style="display: block; font-weight: bold; color: #0000FF; margin-bottom: 5px;">
+                            ✍️ Legenda da foto:
+                        </label>
+                        <input type="text" id="photoCaption" placeholder="Ex: Melhor momento com a VGT! 🎮"
+                               style="width: 100%; padding: 8px; border: 2px inset #C0C0C0; font-family: 'Comic Sans MS', cursive;">
+                    </div>
+
+                    <!-- Preview Area -->
+                    <div id="uploadPreview" style="display: none; margin-bottom: 15px; text-align: center; padding: 15px; background: #F0F0F0; border: 2px dashed #0000FF; border-radius: 5px;">
+                        <p style="font-weight: bold; color: #FF1493; margin: 0 0 10px 0;">👀 PREVIEW:</p>
+                        <img id="previewImage" style="max-width: 300px; max-height: 200px; border: 3px ridge #FFD700;">
+                    </div>
+
+                    <!-- Upload Button -->
+                    <div style="text-align: center;">
+                        <button onclick="addPhotoToGallery()" style="padding: 15px 30px; font-size: 1.2em; font-weight: bold; background: linear-gradient(to bottom, #00FF00, #008000); color: white; border: 3px outset #00FF00; cursor: pointer; border-radius: 5px; text-shadow: 1px 1px 2px black;">
+                            ✨ ADICIONAR À GALERIA! ✨
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Backup Management Section -->
+                <div style="margin-top: 20px; padding: 15px; background: white; border: 3px inset #C0C0C0; border-radius: 5px;">
+                    <h4 style="text-align: center; color: #8B0000; margin-top: 0;">
+                        💾 GERENCIAR FOTOS 💾
+                    </h4>
+                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                        <button onclick="downloadBackup()" style="padding: 10px 20px; font-weight: bold; background: linear-gradient(to bottom, #4169E1, #0000CD); color: white; border: 3px outset #4169E1; cursor: pointer; border-radius: 5px; font-size: 0.9em;">
+                            📥 BAIXAR BACKUP
+                        </button>
+                        <button onclick="document.getElementById('importBackup').click()" style="padding: 10px 20px; font-weight: bold; background: linear-gradient(to bottom, #9370DB, #8A2BE2); color: white; border: 3px outset #9370DB; cursor: pointer; border-radius: 5px; font-size: 0.9em;">
+                            📤 IMPORTAR BACKUP
+                        </button>
+                        <button onclick="resetGallery()" style="padding: 10px 20px; font-weight: bold; background: linear-gradient(to bottom, #DC143C, #8B0000); color: white; border: 3px outset #DC143C; cursor: pointer; border-radius: 5px; font-size: 0.9em;">
+                            🗑️ RESETAR GALERIA
+                        </button>
+                    </div>
+                    <input type="file" id="importBackup" accept=".json" style="display: none;" onchange="importBackup(event)">
+                    <p style="text-align: center; font-size: 0.85em; color: #666; margin: 10px 0 0 0;">
+                        💡 Baixe um backup para guardar as fotos para sempre! Limite: 50 fotos
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Decorative Divider -->
@@ -1233,9 +1707,9 @@
             <p>© 2000-2026 - Site Oficial da Despedida VGT</p>
             <p>Este site foi feito com muito carinho (e nostalgia)</p>
             <div style="margin: 15px 0;">
-                <img src="gifs/cool.gif" alt="Cool" style="height: 31px;" onerror="this.style.display='none'">
+                <img src="gifs/cool.gif" alt="Cool" style="height: 61px;" onerror="this.style.display='none'">
                 <img src="gifs/new.gif" alt="New" style="height: 31px;" onerror="this.style.display='none'">
-                <img src="gifs/retro.gif" alt="Retro" style="height: 31px;" onerror="this.style.display='none'">
+                <img src="gifs/retro.gif" alt="Retro" style="height: 61px;" onerror="this.style.display='none'">
             </div>
             <p style="margin: 15px 0;">
                 <span class="badge-new">100% RETRO!</span>
@@ -1261,9 +1735,131 @@
         <div id="music-status" style="margin-top: 10px; text-align: center; font-size: 0.9em;">
             Parado
         </div>
+        <!-- YouTube Embed -->
+        <div id="youtube-player" style="display: none; margin-top: 15px;">
+            <iframe width="280" height="157" src="https://www.youtube.com/embed/hESDQ_B1cLc?controls=1"
+                    frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen style="border: 3px ridge #FFD700; border-radius: 5px;">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Black Hole Easter Egg -->
+    <div id="black-hole-container" class="black-hole-container">
+        <div class="black-hole"></div>
+    </div>
+
+    <!-- Dev Mode Terminal -->
+    <div id="dev-terminal" class="dev-terminal">
+        <div class="dev-terminal-header">
+            <div class="dev-terminal-title">👨‍💻 VGT DEV TERMINAL v1.0 - HACKATHON EDITION</div>
+            <div class="dev-terminal-close" onclick="closeTerminal()">X</div>
+        </div>
+        <div id="terminal-output" class="dev-terminal-output">
+            <div class="terminal-ascii">
+ __      __ _____ _______   _____ ________      __
+ \ \    / // ____/__   __| |  __ \  ____\ \    / /
+  \ \  / /| |  __   | |    | |  | | |__   \ \  / /
+   \ \/ / | | |_ |  | |    | |  | |  __|   \ \/ /
+    \  /  | |__| |  | |    | |__| | |____   \  /
+     \/    \_____|  |_|    |_____/|______|   \/
+            </div>
+            <div class="terminal-line terminal-success">Sistema iniciado com sucesso!</div>
+            <div class="terminal-line">Digite 'help' para ver os comandos disponíveis.</div>
+            <div class="terminal-line">Digite 'exit' para fechar o terminal.</div>
+            <div class="terminal-line" style="margin-top: 10px;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        </div>
+        <div class="dev-terminal-input-line">
+            <span class="dev-terminal-prompt">VGT@IBMEC:~$</span>
+            <input type="text" id="terminal-input" class="dev-terminal-input" autocomplete="off" spellcheck="false">
+        </div>
     </div>
 
     <script>
+        // ==========================================
+        // BLACK HOLE EASTER EGG - 3 MINUTES TIMER
+        // ==========================================
+
+        let blackHoleTimer;
+        let blackHoleTriggered = false;
+
+        function startBlackHoleTimer() {
+            // 3 minutes = 180000 milliseconds
+            blackHoleTimer = setTimeout(() => {
+                if (!blackHoleTriggered) {
+                    activateBlackHole();
+                }
+            }, 180000); // 3 minutes
+        }
+
+        function activateBlackHole() {
+            blackHoleTriggered = true;
+
+            // Show warning
+            alert('⚠️ ALERTA CÓSMICO! Um buraco negro foi detectado! 🌌');
+
+            // Show black hole
+            const blackHoleContainer = document.getElementById('black-hole-container');
+            blackHoleContainer.style.display = 'block';
+
+            // Play dramatic sound
+            playSound('wrong');
+
+            // Wait for black hole to grow, then suck elements
+            setTimeout(() => {
+                suckEverythingIntoBlackHole();
+            }, 3000);
+        }
+
+        function suckEverythingIntoBlackHole() {
+            // Get center of screen (black hole position)
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            // Get all major elements
+            const elements = document.querySelectorAll('.container, .msn-chat, .music-player, header, .section, img, button, .marquee-container');
+
+            elements.forEach((element, index) => {
+                const rect = element.getBoundingClientRect();
+                const elementCenterX = rect.left + rect.width / 2;
+                const elementCenterY = rect.top + rect.height / 2;
+
+                // Calculate distance to black hole
+                const deltaX = centerX - elementCenterX;
+                const deltaY = centerY - elementCenterY;
+
+                // Set CSS variables for animation
+                element.style.setProperty('--hole-x', `${deltaX}px`);
+                element.style.setProperty('--hole-y', `${deltaY}px`);
+
+                // Add sucking animation with staggered delay
+                setTimeout(() => {
+                    element.classList.add('being-sucked');
+                }, index * 50); // Stagger by 50ms
+            });
+
+            // After everything is sucked, show message
+            setTimeout(() => {
+                document.body.innerHTML = `
+                    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #00FF00; font-family: 'Courier New', monospace; text-align: center; z-index: 999999;">
+                        <h1 style="font-size: 3em; margin-bottom: 20px; text-shadow: 0 0 20px #00FF00;">🌌 BURACO NEGRO 🌌</h1>
+                        <p style="font-size: 1.5em; margin-bottom: 30px;">Você passou tempo demais aqui...</p>
+                        <p style="font-size: 1.2em; margin-bottom: 20px;">Tudo foi sugado para o vazio cósmico! 💀</p>
+                        <p style="font-size: 1em; color: #FFD700; margin-top: 40px;">TRELL DEMAIS! 🎮</p>
+                        <button onclick="location.reload()" style="margin-top: 40px; padding: 15px 30px; font-size: 1.2em; background: linear-gradient(to bottom, #00FF00, #008000); color: white; border: 3px outset #00FF00; cursor: pointer; border-radius: 5px; font-family: 'Comic Sans MS', cursive; font-weight: bold;">
+                            🔄 RECARREGAR UNIVERSO
+                        </button>
+                    </div>
+                `;
+                startConfetti();
+            }, 5000);
+        }
+
+        // Start timer when page loads
+        window.addEventListener('load', () => {
+            startBlackHoleTimer();
+        });
+
         // Loading Screen
         window.addEventListener('load', () => {
             let progress = 0;
@@ -1335,7 +1931,6 @@
             '💔 ALERTA: Prepare os lencos!',
             '🎮 TRELL BKZL! Jogador de DBD detectado!',
             '💻 CODIGO COOKED! Developer mode ativado!',
-            '🏫 LEMBRA DO S... NA IBMEC? 😂',
             '🐧 CLUB PENGUIN chamando... Saudades!',
             '⛏️ TERRARIA: Mais uma noite sem dormir?',
             '🗣️ ICFV LEGACY TUFF detectado no sistema!'
@@ -1502,89 +2097,6 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Memory Game
-        const emojis = ['🇵🇹', '🐟', '✈️', '🧳', '🍷', '🏖️', '🎉', '💔'];
-        let cards = [...emojis, ...emojis];
-        let flippedCards = [];
-        let matchedPairs = 0;
-        let moves = 0;
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function createBoard() {
-            const board = document.getElementById('game-board');
-            board.innerHTML = '';
-            shuffle(cards);
-
-            cards.forEach((emoji, index) => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.dataset.emoji = emoji;
-                card.dataset.index = index;
-                card.addEventListener('click', flipCard);
-                board.appendChild(card);
-            });
-        }
-
-        function flipCard() {
-            if (flippedCards.length === 2 || this.classList.contains('flipped') || this.classList.contains('matched')) {
-                return;
-            }
-
-            this.textContent = this.dataset.emoji;
-            this.classList.add('flipped');
-            flippedCards.push(this);
-
-            if (flippedCards.length === 2) {
-                moves++;
-                document.getElementById('moves').textContent = moves;
-
-                setTimeout(checkMatch, 800);
-            }
-        }
-
-        function checkMatch() {
-            const [card1, card2] = flippedCards;
-
-            if (card1.dataset.emoji === card2.dataset.emoji) {
-                card1.classList.add('matched');
-                card2.classList.add('matched');
-                matchedPairs++;
-                document.getElementById('pairs').textContent = matchedPairs;
-
-                if (matchedPairs === 8) {
-                    setTimeout(() => {
-                        alert('🎉 PARABENS! Voce completou o jogo em ' + moves + ' movimentos!');
-                        startConfetti();
-                    }, 300);
-                }
-            } else {
-                card1.textContent = '';
-                card2.textContent = '';
-                card1.classList.remove('flipped');
-                card2.classList.remove('flipped');
-            }
-
-            flippedCards = [];
-        }
-
-        function resetGame() {
-            flippedCards = [];
-            matchedPairs = 0;
-            moves = 0;
-            document.getElementById('moves').textContent = '0';
-            document.getElementById('pairs').textContent = '0';
-            createBoard();
-        }
-
-        createBoard();
-
         // Guestbook
         function addGuestbookEntry() {
             const name = document.getElementById('guest-name').value;
@@ -1621,26 +2133,33 @@
         let musicInterval;
 
         function toggleMusic() {
-            if (musicPlaying) {
-                stopMusic();
-            } else {
-                musicPlaying = true;
-                document.getElementById('music-status').textContent = '🎵 Tocando: "Saudade.mid"';
+            const player = document.getElementById('youtube-player');
+            const iframe = player.querySelector('iframe');
 
-                // Simula uma "musica" tocando
-                let beat = 0;
-                musicInterval = setInterval(() => {
-                    beat = (beat + 1) % 4;
-                    const notes = ['♪', '♫', '♬', '♩'];
-                    document.getElementById('music-status').textContent = '🎵 ' + notes[beat] + ' Tocando: "Saudade.mid" ' + notes[beat];
-                }, 500);
+            if (player.style.display === 'none') {
+                // Show player and start video with autoplay
+                player.style.display = 'block';
+                document.getElementById('music-status').textContent = '🎵 Tocando no YouTube! 🎶';
+                playSound('correct');
+
+                // Add autoplay when user clicks PLAY
+                iframe.src = 'https://www.youtube.com/embed/hESDQ_B1cLc?autoplay=1&controls=1';
+            } else {
+                // Hide player
+                player.style.display = 'none';
+                document.getElementById('music-status').textContent = '⏹️ Parado';
             }
         }
 
         function stopMusic() {
-            musicPlaying = false;
-            clearInterval(musicInterval);
+            const player = document.getElementById('youtube-player');
+            const iframe = player.querySelector('iframe');
+
+            // Stop video by removing src and adding it back without autoplay
+            player.style.display = 'none';
+            iframe.src = 'https://www.youtube.com/embed/hESDQ_B1cLc?controls=1';
             document.getElementById('music-status').textContent = '⏹️ Parado';
+            playSound('correct');
         }
 
         // Easter Egg: Konami Code
@@ -1665,8 +2184,221 @@
                 0% { filter: hue-rotate(0deg); }
                 100% { filter: hue-rotate(360deg); }
             }
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px) rotate(-5deg); }
+                75% { transform: translateX(10px) rotate(5deg); }
+            }
+            @keyframes spin-crazy {
+                0% { transform: rotate(0deg) scale(1); }
+                50% { transform: rotate(180deg) scale(1.5); }
+                100% { transform: rotate(360deg) scale(1); }
+            }
+            @keyframes glitch {
+                0% { transform: translate(0); }
+                20% { transform: translate(-5px, 5px); }
+                40% { transform: translate(-5px, -5px); }
+                60% { transform: translate(5px, 5px); }
+                80% { transform: translate(5px, -5px); }
+                100% { transform: translate(0); }
+            }
         `;
         document.head.appendChild(style);
+
+        // ==========================================
+        // MORE EASTER EGGS - VGT THEMED!
+        // ==========================================
+
+        let typedKeys = '';
+        let lastKeyTime = Date.now();
+
+        document.addEventListener('keypress', (e) => {
+            const now = Date.now();
+
+            // Reset if more than 2 seconds between keys
+            if (now - lastKeyTime > 2000) {
+                typedKeys = '';
+            }
+
+            typedKeys += e.key.toLowerCase();
+            lastKeyTime = now;
+
+            // Keep only last 10 characters
+            if (typedKeys.length > 10) {
+                typedKeys = typedKeys.slice(-10);
+            }
+
+            // Easter Egg: TRELL
+            if (typedKeys.includes('trell')) {
+                alert('🎮 TRELL ATIVADO! Isso é TRELL demais! 🔥');
+                document.body.style.animation = 'shake 0.5s infinite';
+                startConfetti();
+                playSound('correct');
+                typedKeys = '';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 3000);
+            }
+
+            // Easter Egg: BKZL
+            if (typedKeys.includes('bkzl')) {
+                alert('💀 BKZL MODE ACTIVATED! Tá tudo BKZL aqui! 😱');
+                document.querySelectorAll('img').forEach(img => {
+                    img.style.animation = 'spin-crazy 2s infinite';
+                });
+                startConfetti();
+                playSound('correct');
+                typedKeys = '';
+                setTimeout(() => {
+                    document.querySelectorAll('img').forEach(img => {
+                        img.style.animation = '';
+                    });
+                }, 5000);
+            }
+
+            // Easter Egg: VGT
+            if (typedKeys.includes('vgt')) {
+                alert('🏆 VGT (VINIGOTA) - HACKATHON WINNERS! Os melhores do IBMEC! 💻');
+                document.body.style.background = 'linear-gradient(45deg, #FFD700, #FF1493, #00FFFF, #00FF00)';
+                document.body.style.backgroundSize = '400% 400%';
+                document.body.style.animation = 'rainbow 3s infinite';
+                startConfetti();
+                playSound('correct');
+                typedKeys = '';
+                setTimeout(() => {
+                    document.body.style.background = '';
+                    document.body.style.animation = '';
+                }, 5000);
+            }
+
+            // Easter Egg: LEGACY
+            if (typedKeys.includes('legacy')) {
+                alert('👑 LEGACY UNLOCKED! Vocês deixaram um legado ICFV no IBMEC! 🎓');
+                document.body.style.filter = 'sepia(1) contrast(1.2)';
+                startConfetti();
+                playSound('correct');
+                typedKeys = '';
+                setTimeout(() => {
+                    document.body.style.filter = '';
+                }, 4000);
+            }
+
+            // Easter Egg: COOKED
+            if (typedKeys.includes('cooked')) {
+                alert('🔥 COOKED! O código tá COOKED, a vida tá COOKED, tudo COOKED! 💀');
+                document.body.style.animation = 'glitch 0.3s infinite';
+                startConfetti();
+                playSound('wrong');
+                typedKeys = '';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 3000);
+            }
+
+            // Easter Egg: ICFV
+            if (typedKeys.includes('icfv')) {
+                alert('✨ ICFV! Isso com certeza é ICFV! 😎');
+                document.querySelectorAll('.badge-hot, .badge-cool, .badge-new').forEach(badge => {
+                    badge.style.animation = 'spin-crazy 1s infinite';
+                });
+                startConfetti();
+                playSound('correct');
+                typedKeys = '';
+                setTimeout(() => {
+                    document.querySelectorAll('.badge-hot, .badge-cool, .badge-new').forEach(badge => {
+                        badge.style.animation = '';
+                    });
+                }, 4000);
+            }
+
+            // Easter Egg: TUFF
+            if (typedKeys.includes('tuff')) {
+                alert('💪 TUFF! Isso tá TUFF demais, mano! 🔥');
+                document.body.style.transform = 'scale(1.1)';
+                startConfetti();
+                playSound('correct');
+                typedKeys = '';
+                setTimeout(() => {
+                    document.body.style.transform = '';
+                }, 2000);
+            }
+
+            // Easter Egg: DEV MODE TERMINAL
+            if (typedKeys.includes('dev')) {
+                openTerminal();
+                typedKeys = '';
+            }
+        });
+
+        // ==========================================
+        // CLICK EASTER EGGS
+        // ==========================================
+
+        // Click counter easter egg
+        let counterClicks = 0;
+        const hitCounter = document.querySelector('.hit-counter');
+        if (hitCounter) {
+            hitCounter.style.cursor = 'pointer';
+            hitCounter.addEventListener('click', () => {
+                counterClicks++;
+                if (counterClicks === 10) {
+                    alert('🎰 JACKPOT! Você clicou 10 vezes no contador! Você ganhou... NADA! 😂');
+                    counterClicks = 0;
+                    startConfetti();
+                    playSound('correct');
+                    // Make counter go crazy
+                    let crazyCount = 0;
+                    const crazyInterval = setInterval(() => {
+                        document.getElementById('visitor-count').textContent = Math.floor(Math.random() * 999999);
+                        crazyCount++;
+                        if (crazyCount > 20) {
+                            clearInterval(crazyInterval);
+                            document.getElementById('visitor-count').textContent = '001337';
+                        }
+                    }, 100);
+                }
+            });
+        }
+
+        // Title click easter egg
+        let titleClicks = 0;
+        const mainTitle = document.querySelector('h1');
+        if (mainTitle) {
+            mainTitle.style.cursor = 'pointer';
+            mainTitle.addEventListener('click', () => {
+                titleClicks++;
+                if (titleClicks === 5) {
+                    alert('🎉 Você descobriu! G.FIRMEZA é LENDÁRIO! 🇵🇹');
+                    titleClicks = 0;
+                    mainTitle.style.animation = 'rainbow 1s infinite, spin-crazy 2s infinite';
+                    startConfetti();
+                    playSound('correct');
+                    setTimeout(() => {
+                        mainTitle.style.animation = '';
+                    }, 5000);
+                }
+            });
+        }
+
+        // Slideshow image secret click
+        let photoClicks = 0;
+        const slideshowImg = document.getElementById('slideshowImage');
+        if (slideshowImg) {
+            slideshowImg.style.cursor = 'pointer';
+            slideshowImg.addEventListener('click', () => {
+                photoClicks++;
+                if (photoClicks === 7) {
+                    alert('📸 PAPARAZZI MODE! Você ama fotos demais! 🤳');
+                    photoClicks = 0;
+                    startConfetti();
+                    playSound('correct');
+                    slideshowImg.style.animation = 'spin-crazy 1s';
+                    setTimeout(() => {
+                        slideshowImg.style.animation = '';
+                    }, 1000);
+                }
+            });
+        }
 
         // Button click sounds
         document.querySelectorAll('button').forEach(button => {
@@ -1678,6 +2410,539 @@
                 }
             });
         });
+
+        // ==========================================
+        // DEV MODE TERMINAL
+        // ==========================================
+
+        function openTerminal() {
+            document.getElementById('dev-terminal').style.display = 'block';
+            document.getElementById('terminal-input').focus();
+            playSound('correct');
+            addTerminalLine('💻 DEV MODE ATIVADO! Bem-vindo ao terminal VGT!', 'terminal-success');
+        }
+
+        function closeTerminal() {
+            document.getElementById('dev-terminal').style.display = 'none';
+            playSound('correct');
+        }
+
+        function addTerminalLine(text, className = '') {
+            const output = document.getElementById('terminal-output');
+            const line = document.createElement('div');
+            line.className = 'terminal-line ' + className;
+            line.innerHTML = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Terminal command history
+        let commandHistory = [];
+        let historyIndex = -1;
+
+        // Terminal input handler
+        document.getElementById('terminal-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim();
+                if (command) {
+                    addTerminalLine('<span class="terminal-command">VGT@IBMEC:~$ ' + command + '</span>');
+                    commandHistory.push(command);
+                    historyIndex = commandHistory.length;
+                    processCommand(command.toLowerCase());
+                }
+                this.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    this.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    this.value = '';
+                }
+            }
+        });
+
+        function processCommand(cmd) {
+            const args = cmd.split(' ');
+            const command = args[0];
+
+            switch(command) {
+                case 'help':
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    addTerminalLine('📖 <span class="terminal-success">COMANDOS DISPONÍVEIS:</span>');
+                    addTerminalLine('');
+                    addTerminalLine('  help          - Mostra esta ajuda');
+                    addTerminalLine('  about         - Sobre o site VGT');
+                    addTerminalLine('  vgt           - Informações sobre o VGT');
+                    addTerminalLine('  whoami        - Quem sou eu?');
+                    addTerminalLine('  ls            - Lista arquivos');
+                    addTerminalLine('  cat [file]    - Mostra conteúdo de arquivo');
+                    addTerminalLine('  easter        - Lista easter eggs');
+                    addTerminalLine('  hack          - Modo hacker 😎');
+                    addTerminalLine('  matrix        - Neo, você é o escolhido');
+                    addTerminalLine('  confetti      - 🎉 Celebre!');
+                    addTerminalLine('  blackhole     - ⚠️ PERIGOSO! Buraco negro');
+                    addTerminalLine('  clear         - Limpa o terminal');
+                    addTerminalLine('  exit          - Fecha o terminal');
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    break;
+
+                case 'about':
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    addTerminalLine('<span class="terminal-success">🌟 SITE DE DESPEDIDA - G.FIRMEZA</span>');
+                    addTerminalLine('');
+                    addTerminalLine('📅 Data: 22/01/2026');
+                    addTerminalLine('🎯 Destino: Portugal 🇵🇹');
+                    addTerminalLine('👥 Grupo: VGT (VINIGOTA) - HACKATHON WINNERS 🏆');
+                    addTerminalLine('🏫 Local: IBMEC');
+                    addTerminalLine('🎮 Jogos: Dead by Daylight, Terraria, Club Penguin');
+                    addTerminalLine('💬 Gírias: TRELL, BKZL, ICFV, LEGACY, TUFF, COOKED');
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    break;
+
+                case 'vgt':
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    addTerminalLine('<span class="terminal-success">🏆 VGT (VINIGOTA) - HACKATHON WINNERS</span>');
+                    addTerminalLine('');
+                    addTerminalLine('Status: LENDÁRIO 💎');
+                    addTerminalLine('Conquistas:');
+                    addTerminalLine('  ✅ Vencedores do Hackathon');
+                    addTerminalLine('  ✅ Madrugadas codando');
+                    addTerminalLine('  ✅ Momentos épicos de DBD e Terraria');
+                    addTerminalLine('  ✅ Criadores das gírias ICFV');
+                    addTerminalLine('  ✅ Legado deixado no IBMEC');
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    break;
+
+                case 'whoami':
+                    addTerminalLine('Você é um <span class="terminal-success">VISITANTE</span> do site de despedida do G.FIRMEZA!');
+                    addTerminalLine('IP: 127.0.0.1 (localhost - sem rastreamento!)');
+                    addTerminalLine('User-Agent: Nostalgic Web 1.0 Enjoyer 😎');
+                    break;
+
+                case 'ls':
+                    addTerminalLine('📁 Arquivos do sistema:');
+                    addTerminalLine('');
+                    addTerminalLine('  README.md         - Documentação do site');
+                    addTerminalLine('  memories.json     - Memórias do VGT');
+                    addTerminalLine('  slang.txt         - Dicionário de gírias');
+                    addTerminalLine('  photos/           - Galeria de fotos');
+                    addTerminalLine('  secrets/          - Easter eggs 👀');
+                    addTerminalLine('  portugal.txt      - Informações de Portugal');
+                    break;
+
+                case 'cat':
+                    if (args[1]) {
+                        const file = args[1];
+                        if (file === 'slang.txt' || file === 'slang') {
+                            addTerminalLine('📖 <span class="terminal-success">DICIONÁRIO DE GÍRIAS VGT:</span>');
+                            addTerminalLine('');
+                            addTerminalLine('TRELL    - Algo muito bom, top');
+                            addTerminalLine('BKZL     - Complicado, confuso, bagunçado');
+                            addTerminalLine('ICFV     - Isso com certeza vai');
+                            addTerminalLine('LEGACY   - Legado, marca deixada');
+                            addTerminalLine('TUFF     - Difícil, pesado, intenso');
+                            addTerminalLine('COOKED   - Ferrado, perdido, acabado');
+                        } else if (file === 'portugal.txt' || file === 'portugal') {
+                            addTerminalLine('🇵🇹 <span class="terminal-success">DESTINO: PORTUGAL</span>');
+                            addTerminalLine('');
+                            addTerminalLine('Não esqueça de:');
+                            addTerminalLine('  🐟 Trazer bacalhau');
+                            addTerminalLine('  🍷 Experimentar vinho do Porto');
+                            addTerminalLine('  🏖️  Visitar as praias');
+                            addTerminalLine('  💔 Sentir saudades do VGT');
+                        } else if (file === 'secrets' || file === 'secrets/') {
+                            addTerminalLine('<span class="terminal-error">❌ Acesso negado!</span> Digite "easter" para ver os easter eggs!');
+                        } else {
+                            addTerminalLine('<span class="terminal-error">cat: ' + file + ': Arquivo não encontrado</span>');
+                        }
+                    } else {
+                        addTerminalLine('<span class="terminal-error">Uso: cat [arquivo]</span>');
+                        addTerminalLine('Experimente: cat slang.txt, cat portugal.txt');
+                    }
+                    break;
+
+                case 'easter':
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    addTerminalLine('🥚 <span class="terminal-success">EASTER EGGS DO SITE:</span>');
+                    addTerminalLine('');
+                    addTerminalLine('Digite essas palavras em qualquer lugar:');
+                    addTerminalLine('  • TRELL   - Site treme');
+                    addTerminalLine('  • BKZL    - Imagens giram');
+                    addTerminalLine('  • VGT     - Background colorido');
+                    addTerminalLine('  • LEGACY  - Filtro sépia');
+                    addTerminalLine('  • ICFV    - Badges giram');
+                    addTerminalLine('  • TUFF    - Site aumenta');
+                    addTerminalLine('  • COOKED  - Efeito glitch');
+                    addTerminalLine('  • DEV     - Abre este terminal');
+                    addTerminalLine('');
+                    addTerminalLine('Cliques especiais:');
+                    addTerminalLine('  • Contador 10x  - Números loucos');
+                    addTerminalLine('  • Título 5x     - Rainbow spin');
+                    addTerminalLine('  • Foto 7x       - Paparazzi mode');
+                    addTerminalLine('');
+                    addTerminalLine('Konami Code: ↑↑↓↓←→←→BA - Rainbow mode!');
+                    addTerminalLine('');
+                    addTerminalLine('⚫ BURACO NEGRO: Fique 3 min no site!');
+                    addTerminalLine('   (ou use comando "blackhole" no terminal)');
+                    addTerminalLine('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+                    break;
+
+                case 'hack':
+                    addTerminalLine('<span class="terminal-success">🔓 Iniciando sequência de hacking...</span>');
+                    setTimeout(() => addTerminalLine('Conectando ao mainframe...'), 500);
+                    setTimeout(() => addTerminalLine('Bypass de firewall... OK ✅'), 1000);
+                    setTimeout(() => addTerminalLine('Descriptografando dados... OK ✅'), 1500);
+                    setTimeout(() => addTerminalLine('Acesso root obtido! 👑'), 2000);
+                    setTimeout(() => addTerminalLine('<span class="terminal-success">Você é HACKER TRELL agora! 😎</span>'), 2500);
+                    setTimeout(() => {
+                        document.body.style.animation = 'glitch 0.2s infinite';
+                        setTimeout(() => { document.body.style.animation = ''; }, 2000);
+                    }, 2500);
+                    break;
+
+                case 'matrix':
+                    addTerminalLine('<span class="terminal-success">Wake up, Neo...</span>');
+                    setTimeout(() => addTerminalLine('The Matrix has you...'), 800);
+                    setTimeout(() => addTerminalLine('Follow the white rabbit. 🐰'), 1600);
+                    setTimeout(() => {
+                        document.body.style.animation = 'rainbow 1s infinite';
+                        startConfetti();
+                        setTimeout(() => { document.body.style.animation = ''; }, 3000);
+                    }, 2000);
+                    break;
+
+                case 'confetti':
+                    addTerminalLine('🎉 CELEBRANDO! 🎊');
+                    startConfetti();
+                    playSound('correct');
+                    break;
+
+                case 'blackhole':
+                case 'buraco':
+                    addTerminalLine('<span class="terminal-error">⚠️ ATIVANDO BURACO NEGRO...</span>');
+                    addTerminalLine('Você não deveria ter feito isso... 🌌');
+                    setTimeout(() => {
+                        closeTerminal();
+                        activateBlackHole();
+                    }, 2000);
+                    break;
+
+                case 'clear':
+                    document.getElementById('terminal-output').innerHTML = '';
+                    break;
+
+                case 'exit':
+                    addTerminalLine('<span class="terminal-success">👋 Até logo! Terminal fechando...</span>');
+                    setTimeout(() => closeTerminal(), 1000);
+                    break;
+
+                default:
+                    addTerminalLine('<span class="terminal-error">bash: ' + command + ': comando não encontrado</span>');
+                    addTerminalLine('Digite "help" para ver os comandos disponíveis.');
+            }
+        }
+
+        // ==========================================
+        // PHOTO GALLERY SLIDESHOW WITH LOCALSTORAGE
+        // ==========================================
+
+        // Default photos
+        const defaultPhotos = [
+            {
+                src: 'imgs/vgt-pt.jpeg',
+                caption: 'Fazendo L'
+            },
+            {
+                src: 'imgs/winners.jpeg',
+                caption: 'VGT CAMPEÃO! 🏆💻'
+            },
+            {
+                src: 'imgs/work-sp.jpeg',
+                caption: 'Vida de dev COOKED! 💻💀'
+            },
+            {
+                src: 'imgs/quase-firme.jpeg',
+                caption: 'O cara que vai embora! 😭'
+            }
+        ];
+
+        let currentPhotoIndex = 0;
+        let uploadedPhotoData = null;
+        const MAX_PHOTOS = 50;
+
+        // Load photos from localStorage or use defaults
+        function loadPhotos() {
+            const saved = localStorage.getItem('vgtGalleryPhotos');
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch (e) {
+                    return [...defaultPhotos];
+                }
+            }
+            return [...defaultPhotos];
+        }
+
+        // Save photos to localStorage
+        function savePhotos(photos) {
+            try {
+                localStorage.setItem('vgtGalleryPhotos', JSON.stringify(photos));
+            } catch (e) {
+                alert('⚠️ Erro ao salvar foto (pode ser muito grande)');
+            }
+        }
+
+        let galleryPhotos = loadPhotos();
+
+        // Display current photo
+        function displayPhoto(index) {
+            if (galleryPhotos.length === 0) {
+                document.getElementById('slideshowImage').src = 'https://via.placeholder.com/800x600/808080/FFFFFF?text=Nenhuma+foto';
+                document.getElementById('slideshowCaption').textContent = 'Adicione fotos à galeria! 📸';
+                return;
+            }
+
+            currentPhotoIndex = index;
+            if (currentPhotoIndex < 0) currentPhotoIndex = galleryPhotos.length - 1;
+            if (currentPhotoIndex >= galleryPhotos.length) currentPhotoIndex = 0;
+
+            const photo = galleryPhotos[currentPhotoIndex];
+            document.getElementById('slideshowImage').src = photo.src;
+            document.getElementById('slideshowCaption').textContent = photo.caption;
+            document.getElementById('currentPhotoIndex').textContent = currentPhotoIndex + 1;
+            document.getElementById('totalPhotos').textContent = galleryPhotos.length;
+
+            updateThumbnails();
+        }
+
+        // Navigation functions
+        function previousPhoto() {
+            displayPhoto(currentPhotoIndex - 1);
+            playSound('correct');
+        }
+
+        function nextPhoto() {
+            displayPhoto(currentPhotoIndex + 1);
+            playSound('correct');
+        }
+
+        function goToPhoto(index) {
+            displayPhoto(index);
+            playSound('correct');
+        }
+
+        // Update thumbnails
+        function updateThumbnails() {
+            const container = document.getElementById('thumbnailContainer');
+            container.innerHTML = '';
+
+            galleryPhotos.forEach((photo, index) => {
+                const thumb = document.createElement('div');
+                thumb.style.cssText = `
+                    width: 60px;
+                    height: 60px;
+                    border: 3px solid ${index === currentPhotoIndex ? '#FF1493' : '#FFD700'};
+                    cursor: pointer;
+                    overflow: hidden;
+                    background: white;
+                    box-shadow: ${index === currentPhotoIndex ? '0 0 10px #FF1493' : 'none'};
+                    transition: all 0.3s;
+                `;
+                thumb.innerHTML = `<img src="${photo.src}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                thumb.onclick = () => goToPhoto(index);
+                thumb.onmouseover = () => {
+                    thumb.style.transform = 'scale(1.1)';
+                    thumb.style.border = '3px solid #00FF00';
+                };
+                thumb.onmouseout = () => {
+                    thumb.style.transform = 'scale(1)';
+                    thumb.style.border = `3px solid ${index === currentPhotoIndex ? '#FF1493' : '#FFD700'}`;
+                };
+                container.appendChild(thumb);
+            });
+        }
+
+        // Photo Upload - Preview functionality
+        document.getElementById('photoUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    uploadedPhotoData = event.target.result;
+                    document.getElementById('previewImage').src = uploadedPhotoData;
+                    document.getElementById('uploadPreview').style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Add photo to gallery
+        function addPhotoToGallery() {
+            if (!uploadedPhotoData) {
+                alert('⚠️ Escolha uma foto primeiro! 📸');
+                playSound('wrong');
+                return;
+            }
+
+            if (galleryPhotos.length >= MAX_PHOTOS) {
+                alert(`⚠️ Limite de ${MAX_PHOTOS} fotos atingido! TUFF demais! 🔥`);
+                playSound('wrong');
+                return;
+            }
+
+            const caption = document.getElementById('photoCaption').value || 'Momento VGT! 🎮';
+
+            // Add new photo
+            galleryPhotos.push({
+                src: uploadedPhotoData,
+                caption: caption
+            });
+
+            // Save to localStorage
+            savePhotos(galleryPhotos);
+
+            // Success feedback
+            alert('✅ FOTO ADICIONADA COM SUCESSO! TRELL! 🎉');
+            playSound('correct');
+            startConfetti();
+
+            // Reset form
+            document.getElementById('photoUpload').value = '';
+            document.getElementById('photoCaption').value = '';
+            document.getElementById('uploadPreview').style.display = 'none';
+            uploadedPhotoData = null;
+
+            // Show the new photo
+            displayPhoto(galleryPhotos.length - 1);
+        }
+
+        // Initialize gallery on page load
+        displayPhoto(0);
+
+        // Keyboard navigation (Arrow keys)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                previousPhoto();
+            } else if (e.key === 'ArrowRight') {
+                nextPhoto();
+            }
+        });
+
+        // ==========================================
+        // BACKUP MANAGEMENT
+        // ==========================================
+
+        // Download backup as JSON file
+        function downloadBackup() {
+            const backup = {
+                version: '1.0',
+                date: new Date().toISOString(),
+                photos: galleryPhotos,
+                totalPhotos: galleryPhotos.length
+            };
+
+            const dataStr = JSON.stringify(backup, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `VGT-Galeria-Backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+
+            alert('💾 BACKUP BAIXADO! Guarde este arquivo para sempre! TRELL! 🎉');
+            playSound('correct');
+        }
+
+        // Import backup from JSON file
+        function importBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const backup = JSON.parse(e.target.result);
+
+                    if (!backup.photos || !Array.isArray(backup.photos)) {
+                        alert('⚠️ Arquivo de backup inválido!');
+                        playSound('wrong');
+                        return;
+                    }
+
+                    // Check photo limit
+                    if (backup.photos.length > MAX_PHOTOS) {
+                        alert(`⚠️ Backup contém ${backup.photos.length} fotos, mas o limite é ${MAX_PHOTOS}! Importando apenas as primeiras ${MAX_PHOTOS}...`);
+                        backup.photos = backup.photos.slice(0, MAX_PHOTOS);
+                    }
+
+                    // Confirm import
+                    if (confirm(`📤 Importar ${backup.photos.length} fotos?\n\nIsso vai substituir a galeria atual!`)) {
+                        galleryPhotos = backup.photos;
+                        savePhotos(galleryPhotos);
+                        displayPhoto(0);
+
+                        alert('✅ BACKUP IMPORTADO COM SUCESSO! LEGACY! 🎊');
+                        playSound('correct');
+                        startConfetti();
+                    }
+                } catch (error) {
+                    alert('❌ Erro ao ler o arquivo de backup! Arquivo corrompido.');
+                    playSound('wrong');
+                }
+            };
+
+            reader.readAsText(file);
+
+            // Reset file input
+            event.target.value = '';
+        }
+
+        // Reset gallery to default
+        function resetGallery() {
+            if (confirm('🗑️ TEM CERTEZA?\n\nIsso vai apagar TODAS as fotos adicionadas e voltar à galeria padrão!\n\nBAIXE UM BACKUP ANTES se quiser guardar as fotos!')) {
+                if (confirm('⚠️ ÚLTIMA CHANCE!\n\nRealmente quer resetar a galeria?')) {
+                    galleryPhotos = [...defaultPhotos];
+                    savePhotos(galleryPhotos);
+                    displayPhoto(0);
+
+                    alert('✅ Galeria resetada para o padrão! BKZL! 🔄');
+                    playSound('correct');
+                }
+            }
+        }
+
+        // Add fadeIn animation if not exists
+        if (!document.querySelector('style[data-upload-animations]')) {
+            const uploadStyle = document.createElement('style');
+            uploadStyle.setAttribute('data-upload-animations', 'true');
+            uploadStyle.textContent = `
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.8) rotate(-5deg);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1) rotate(0deg);
+                    }
+                }
+            `;
+            document.head.appendChild(uploadStyle);
+        }
     </script>
 </body>
 </html>
